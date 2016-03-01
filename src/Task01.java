@@ -75,7 +75,7 @@ public class Task01 {
                                             System.out.println(l+1+"."+book.get(j).getPhoneNumb().get(l).toString());
                                         }
                                         System.out.println("Какой номер необходимо изменить?");
-                                        int tempPhone = sc.nextInt()+1;
+                                        int tempPhone = sc.nextInt()-1;
                                         System.out.println("Введите новый номер телефона");
                                         book.get(j).getPhoneNumb().get(tempPhone).setNumber(sc.next());
                                        // System.out.println("Введите номер телефона");
