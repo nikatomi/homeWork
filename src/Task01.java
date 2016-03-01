@@ -110,7 +110,7 @@ public class Task01 {
                     for(Zapis h : book){
                         System.out.println(h.getId()+" "+h.getLastname()+" "+h.getName()+" "+h.getPhoneNumb().getNumber()+" "+h.getPhoneNumb().getType()+" "+h.getTeg());
                     }
-                    System.out.println("---------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------++++");
                     break;
                 default:
                     System.out.println("Не корректно введены данные");
