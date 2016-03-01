@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Created by Андрей on 24.02.16.
  */
@@ -5,7 +7,7 @@ public class Zapis {
     private int id;
     private String name;
     private String lastname;
-    private PhoneNumb phoneNumb;
+    private List<PhoneNumb> phoneNumb;
     private String teg;
 
     public Zapis() {
@@ -16,7 +18,7 @@ public class Zapis {
         teg = null;
     }
 
-    public Zapis(int id, String name, String lastname, PhoneNumb phoneNumb, String teg) {
+    public Zapis(int id, String name, String lastname, List<PhoneNumb> phoneNumb, String teg) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -36,7 +38,7 @@ public class Zapis {
         this.lastname = lastname;
     }
 
-    public void setPhoneNumb(PhoneNumb phoneNumb) {
+    public void setPhoneNumb(List<PhoneNumb> phoneNumb) {
         this.phoneNumb = phoneNumb;
     }
 
@@ -52,7 +54,7 @@ public class Zapis {
         return name;
     }
 
-    public PhoneNumb getPhoneNumb() {
+    public List<PhoneNumb> getPhoneNumb() {
         return phoneNumb;
     }
 

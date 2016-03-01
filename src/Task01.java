@@ -26,7 +26,18 @@ public class Task01 {
                     System.out.println("Фамилия");
                     temp.setLastname(sc.next());
                     System.out.println("Введите номер телефона");
-                    temp.setPhoneNumb(new PhoneNumb(sc.next(),sc.next()));
+                    List<PhoneNumb>phones = new ArrayList<>();
+                    int k = 1;
+                    while(k != 0){
+                        PhoneNumb telefon = new PhoneNumb();
+                        telefon.setType(sc.next());
+                        telefon.setNumber(sc.next());
+                        phones.add(telefon);
+                        System.out.println("1.Добавить телефон");
+                        System.out.println("0.Продолжить ");
+                        k = sc.nextInt();
+                    }
+                    temp.setPhoneNumb(phones);
                     System.out.println("Введите тэг");
                     temp.setTeg(sc.next());
                     book.add(temp);
@@ -51,7 +62,7 @@ public class Task01 {
                             while (exit2 == 0) {
                                 System.out.println("1.Изменить имя");
                                 System.out.println("2.Изменить номер телефона");
-                                System.out.println("3.Изменить тип телефона");
+                                System.out.println("3.Изменить тег");
                                 System.out.println("4.Выход");
                                 System.out.println("выберите действие");
                                 switch (sc.nextInt()) {
@@ -60,12 +71,19 @@ public class Task01 {
                                         book.get(j).setName(sc.next());
                                         break;
                                     case 2:
-                                        System.out.println("Введите номер телефона");
-                                        book.get(j).getPhoneNumb().setNumber(sc.next());
+                                        for(int l = 0;l<book.get(j).getPhoneNumb().size();l++) {
+                                            System.out.println(l+1+"."+book.get(j).getPhoneNumb().get(l).toString());
+                                        }
+                                        System.out.println("Какой номер необходимо изменить?");
+                                        int tempPhone = sc.nextInt()+1;
+                                        System.out.println("Введите новый номер телефона");
+                                        book.get(j).getPhoneNumb().get(tempPhone).setNumber(sc.next());
+                                       // System.out.println("Введите номер телефона");
+                                       // book.get(j).getPhoneNumb().setNumber(sc.next());
                                         break;
                                     case 3:
-                                        System.out.println("Введите тип телефона");
-                                        book.get(j).getPhoneNumb().setType(sc.next());
+                                        System.out.println("Введите тег");
+                                        book.get(j).setTeg(sc.next());
                                         break;
                                     case 4:
                                         exit2 = 1;
@@ -95,7 +113,7 @@ public class Task01 {
                             Collections.sort(book,new CompTeg());
                             break;
                         case 4:
-                            Collections.sort(book,new CompPhone());
+                         //   Collections.sort(book,new CompPhone());
                             break;
                         default:
                             System.out.println("Ошибка ввода!");
@@ -108,7 +126,10 @@ public class Task01 {
                 case 6:
                     System.out.println("---------------------------------------------------------");
                     for(Zapis h : book){
-                        System.out.println(h.getId()+" "+h.getLastname()+" "+h.getName()+" "+h.getPhoneNumb().getNumber()+" "+h.getPhoneNumb().getType()+" "+h.getTeg());
+                        System.out.println(h.getId()+" "+h.getLastname()+" "+h.getName()+" "+" "+h.getTeg());
+                        for(PhoneNumb p : h.getPhoneNumb()){
+                            System.out.println(p.getNumber()+" "+p.getType());
+                        }
                     }
                     System.out.println("---------------------------------------------------------");
                     break;

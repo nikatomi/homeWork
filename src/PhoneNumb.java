@@ -24,4 +24,9 @@ public class PhoneNumb {
     public String getNumber(){
         return number;
     }
+
+    @Override
+    public String toString() {
+        return type+" - "+number;
+    }
 }
