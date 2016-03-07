@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Task01 {
     public static void main(String[] args) {
-        int exit = 0, exit2, i = 0, exit1 = 0, exit3 = 0;
+        int exit = 0, exit2, exit1 = 0, exit3 = 0;
         Scanner sc = new Scanner(System.in);
         while (exit == 0) {
             Menu.fileMenu();
@@ -41,8 +41,9 @@ public class Task01 {
                                 temp.setPhoneNumb(phoneNumbs);
                                 System.out.println("Введите тег");
                                 temp.setTeg(sc.next());
+                                repositories.sortId();
+                                int i = repositories.getList().get(repositories.getList().size()-1).getId()+1;
                                 temp.setId(i);
-                                i++;
                                 repositories.addField(temp);
                                 break;
                             case 2:
