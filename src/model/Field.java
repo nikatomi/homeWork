@@ -1,24 +1,24 @@
+package model;
+
+import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Андрей on 24.02.16.
- */
-public class Zapis {
+public class Field implements Serializable{
     private int id;
     private String name;
     private String lastname;
     private List<PhoneNumb> phoneNumb;
     private String teg;
-
-    public Zapis() {
-        id = 0;
-        name = null;
-        lastname = null;
-        phoneNumb = null;
-        teg = null;
-    }
-
-    public Zapis(int id, String name, String lastname, List<PhoneNumb> phoneNumb, String teg) {
+    private final static String
+            TMPL = "======================================\n" +
+                   "ID : %d \n" +
+                   "Фамилия : %s \n" +
+                   "Имя : %s \n" +
+                   "Тэг : %s \n" +
+                   "Телефон : %s \n" +
+                   "======================================\n";
+    public Field(){}
+    public Field(int id, String name, String lastname, List<PhoneNumb> phoneNumb, String teg) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -64,5 +64,10 @@ public class Zapis {
 
     public String getTeg() {
         return teg;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(TMPL,id,lastname,name,teg,phoneNumb.toString());
     }
 }

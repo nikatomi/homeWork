@@ -1,13 +1,11 @@
-/**
- * Created by Андрей on 24.02.16.
- */
-public class PhoneNumb {
+package model;
+
+import java.io.Serializable;
+
+public class PhoneNumb implements Serializable{
     private String type;
     private String number;
-    public PhoneNumb(){
-        type = null;
-        number = null;
-    }
+    public PhoneNumb(){}
     public PhoneNumb(String type,String number){
         this.type = type;
         this.number = number;
