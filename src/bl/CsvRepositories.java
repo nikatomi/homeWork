@@ -52,4 +52,24 @@ public class CsvRepositories implements Repositories {
         return null;
     }
 
+    @Override
+    public List<Field> searchLastName(String st) {
+        return null;
+    }
+
+    @Override
+    public List<Field> searchName(String st) {
+        return null;
+    }
+
+    @Override
+    public List<Field> searchTag(String st) {
+        return null;
+    }
+
+    @Override
+    public List<Field> searchDate(String st) {
+        return null;
+    }
+
 }

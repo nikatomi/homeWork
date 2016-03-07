@@ -3,14 +3,13 @@ import bl.Repositories;
 import model.Field;
 import model.PhoneNumb;
 import bl.Menu;
-
 import java.text.DateFormat;
 import java.util.*;
 import java.util.List;
 
 public class Task01 {
     public static void main(String[] args) {
-        int exit = 0, exit2, exit1 = 0, exit3 = 0;
+        int exit = 0, exit2, exit1 = 0, exit3;
         Scanner sc = new Scanner(System.in);
         Date date = new Date();
         while (exit == 0) {
@@ -119,6 +118,43 @@ public class Task01 {
                                 }
                                 break;
                             case 6:
+                                Menu.searchMenu();
+                                List<Field>list;
+                                switch (sc.nextInt()){
+                                    case 1:
+                                        System.out.println("Введите искомую фамилию");
+                                        list = repositories.searchLastName(sc.next());
+                                        for(Field h : list){
+                                            System.out.println(h.toString());
+                                        }
+                                        break;
+                                    case 2:
+                                        System.out.println("Введите имя");
+                                        list = repositories.searchName(sc.next());
+                                        for(Field h : list){
+                                            System.out.println(h.toString());
+                                        }
+                                        break;
+                                    case 3:
+                                        System.out.println("Введите тэг");
+                                        list = repositories.searchTag(sc.next());
+                                        for(Field h : list){
+                                            System.out.println(h.toString());
+                                        }
+                                        break;
+                                    case 4:
+                                        System.out.println("Введите дату");
+                                        list = repositories.searchDate(sc.next());
+                                        for(Field h : list){
+                                            System.out.println(h.toString());
+                                        }
+                                        break;
+                                    default:
+                                        System.out.println("Ошибка ввода");
+                                        break;
+                                }
+                                break;
+                            case 7:
                                 exit1 = 1;
                                 break;
                             default:

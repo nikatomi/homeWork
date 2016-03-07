@@ -1,8 +1,5 @@
 package bl;
 
-/**
- * Created by Андрей on 07.03.16.
- */
 public class Menu {
     public static void mainMenu(){
         System.out.println("1.Добавить запись в репозиторий");
@@ -10,7 +7,8 @@ public class Menu {
         System.out.println("3.Удалить запись из репозитория");
         System.out.println("4.Сортировать записи");
         System.out.println("5.Вывод на экран");
-        System.out.println("6.Выполнить шаг назад");
+        System.out.println("6.Поиск записей ");
+        System.out.println("7.Выполнить шаг назад");
     }
     public static void fileMenu(){
         System.out.println("Выберите репозиторий для работы");
@@ -34,5 +32,11 @@ public class Menu {
         System.out.println("2.Сортировать по имени");
         System.out.println("3.Сортировать по тэгу");
         System.out.println("4.Сортировать по ID");
+    }
+    public static void searchMenu(){
+        System.out.println("1.Поиск по фамилии");
+        System.out.println("2.Поиск по имени");
+        System.out.println("3.Поиск по тэгу");
+        System.out.println("4.Поиск по дате");
     }
 }
