@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public class Field implements Serializable{
@@ -9,6 +10,7 @@ public class Field implements Serializable{
     private String lastname;
     private List<PhoneNumb> phoneNumb;
     private String teg;
+    private String date;
     private final static String
             TMPL = "======================================\n" +
                    "ID : %d \n" +
@@ -16,6 +18,7 @@ public class Field implements Serializable{
                    "Имя : %s \n" +
                    "Тэг : %s \n" +
                    "Телефон : %s \n" +
+                   "Дата изменения записи : %s \n" +
                    "======================================\n";
     public Field(){}
     public Field(int id, String name, String lastname, List<PhoneNumb> phoneNumb, String teg) {
@@ -66,8 +69,16 @@ public class Field implements Serializable{
         return teg;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
-        return String.format(TMPL,id,lastname,name,teg,phoneNumb.toString());
+        return String.format(TMPL,id,lastname,name,teg,phoneNumb.toString(),date);
     }
 }
