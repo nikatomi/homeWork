@@ -1,4 +1,4 @@
-package model;
+package bl;
 import model.Field;
 import java.util.List;
 

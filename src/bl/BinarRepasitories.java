@@ -1,8 +1,8 @@
-package model;
+package bl;
 
 import bl.CompareField;
+import bl.Repositories;
 import model.Field;
-import model.Repositories;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

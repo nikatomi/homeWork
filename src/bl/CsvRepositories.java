@@ -1,6 +1,6 @@
-package model;
+package bl;
+import bl.Repositories;
 import model.Field;
-import model.Repositories;
 
 import java.util.List;
 
