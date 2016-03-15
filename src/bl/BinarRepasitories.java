@@ -31,7 +31,7 @@ public class BinarRepasitories implements Repositories {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             list = (List<Field>) objectInputStream.readObject();
         }catch (Exception e){
-            System.out.println("Ошибка файла");
+            System.out.println("Файл пуст");
         }
         return list;
     }

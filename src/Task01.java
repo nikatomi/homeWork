@@ -1,4 +1,5 @@
 import bl.BinarRepasitories;
+import bl.CsvRepositories;
 import bl.Repositories;
 import model.Field;
 import model.PhoneNumb;
@@ -43,7 +44,12 @@ public class Task01 {
                                 System.out.println("Введите тег");
                                 temp.setTeg(sc.next());
                                 repositories.sortId();
-                                int i = repositories.getList().get(repositories.getList().size()-1).getId()+1;
+                                int i;
+                                try {
+                                     i = repositories.getList().get(repositories.getList().size()-1).getId()+1;
+                                }catch (Exception e){
+                                     i = 0;
+                                }
                                 temp.setId(i);
                                 temp.setDate(DateFormat.getDateInstance(DateFormat.SHORT).format(date));
                                 repositories.addField(temp);
@@ -163,6 +169,48 @@ public class Task01 {
                     }
                     break;
                 case 2:
+                    CsvRepositories csvRepositories = new CsvRepositories();
+                    List<Field> list = new ArrayList<>();
+                    switch (sc.nextInt()){
+                        case 1:
+                            Field temp = new Field();
+                            System.out.println("Введите фамилию");
+                            temp.setLastname(sc.next());
+                            System.out.println("Введите имя");
+                            temp.setName(sc.next());
+                            System.out.println("Введите телефон");
+                            List<PhoneNumb> phoneNumbs = new ArrayList<>();
+                            exit2 = 1;
+                            while (exit2 != 0) {
+                                PhoneNumb phone = new PhoneNumb();
+                                phone.setType(sc.next());
+                                phone.setNumber(sc.next());
+                                phoneNumbs.add(phone);
+                                Menu.phoneMenu();
+                                exit2 = sc.nextInt();
+                            }
+                            temp.setPhoneNumb(phoneNumbs);
+                            System.out.println("Введите тег");
+                            temp.setTeg(sc.next());
+                            csvRepositories.sortId();
+                            int i;
+                            try {
+                                i = csvRepositories.getList().get(csvRepositories.getList().size()-1).getId()+1;
+                            }catch (Exception e){
+                                i = 0;
+                            }
+                            temp.setId(i);
+                            temp.setDate(DateFormat.getDateInstance(DateFormat.SHORT).format(date));
+                            csvRepositories.addField(temp);
+                            break;
+                        case 2:
+                            for (Field h : csvRepositories.getList()) {
+                                System.out.println(h.toString());
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case 3:
                     exit = 1;

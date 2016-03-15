@@ -11,15 +11,15 @@ public class Field implements Serializable{
     private List<PhoneNumb> phoneNumb;
     private String teg;
     private String date;
-    private final static String
-            TMPL = "======================================\n" +
-                   "ID : %d \n" +
-                   "Фамилия : %s \n" +
-                   "Имя : %s \n" +
-                   "Тэг : %s \n" +
-                   "Телефон : %s \n" +
-                   "Дата изменения записи : %s \n" +
-                   "======================================\n";
+//    private final static String
+//            TMPL = "======================================\n" +
+//                   "ID : %d \n" +
+//                   "Фамилия : %s \n" +
+//                   "Имя : %s \n" +
+//                   "Тэг : %s \n" +
+//                   "Телефон : %s \n" +
+//                   "Дата изменения записи : %s \n" +
+//                   "======================================\n";
     public Field(){}
     public Field(int id, String name, String lastname, List<PhoneNumb> phoneNumb, String teg) {
         this.id = id;
@@ -79,6 +79,13 @@ public class Field implements Serializable{
 
     @Override
     public String toString() {
-        return String.format(TMPL,id,lastname,name,teg,phoneNumb.toString(),date);
+        return String.format("======================================\n" +
+                "ID : %d \n" +
+                "Фамилия : %s \n" +
+                "Имя : %s \n" +
+                "Тэг : %s \n" +
+                "Телефон : %s \n" +
+                "Дата изменения записи : %s \n" +
+                "======================================\n",id,lastname,name,teg,phoneNumb.toString(),date);
     }
 }
