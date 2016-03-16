@@ -192,13 +192,14 @@ public class Task01 {
                             temp.setPhoneNumb(phoneNumbs);
                             System.out.println("Введите тег");
                             temp.setTeg(sc.next());
-                            csvRepositories.sortId();
+                            //csvRepositories.sortId();
                             int i;
                             try {
                                 i = csvRepositories.getList().get(csvRepositories.getList().size()-1).getId()+1;
                             }catch (Exception e){
                                 i = 0;
                             }
+
                             temp.setId(i);
                             temp.setDate(DateFormat.getDateInstance(DateFormat.SHORT).format(date));
                             csvRepositories.addField(temp);

@@ -10,8 +10,8 @@ import java.util.List;
 public class CsvRepositories implements Repositories {
     private List<Field>list = new ArrayList<>();
     private int i;
-    File file = new File("testCvs.txt");
     public List<Field> addInFile(){
+        File file = new File("testCvs.csv");
         try(BufferedWriter buff = new BufferedWriter(new FileWriter(file))) {
             Class clazz = Field.class;
             java.lang.reflect.Field[] field = clazz.getDeclaredFields();
@@ -19,22 +19,48 @@ public class CsvRepositories implements Repositories {
             for (int j = 0; j <list.size() ; j++) {
                 for (int k = 0; k <field.length ; k++) {
                     field[k].setAccessible(true);
-                    Field h = list.get(j);
-                    st[k] = ""+field[k].get(h);
-                    buff.write(" "+st[k]+",");
-                    field[k].setAccessible(false);
+                    if(field[k].getType().equals(List.class)){
+                        Class clazzTel = PhoneNumb.class;
+                        java.lang.reflect.Field[]fieldTel = clazzTel.getDeclaredFields();
+                        String[]stTel = new String[fieldTel.length];
+                        buff.write("\"");
+                        for(int z = 0; z <list.get(j).getPhoneNumb().size();z++) {
+                            for (int l = 0; l < stTel.length; l++) {
+                                fieldTel[l].setAccessible(true);
+                                stTel[l] = "" + fieldTel[l].get(list.get(j).getPhoneNumb().get(z));
+                                buff.write(stTel[l] + "-");
+                                fieldTel[l].setAccessible(false);
+                                fieldTel[l + 1].setAccessible(true);
+                                stTel[l + 1] = "" + fieldTel[l + 1].get(list.get(j).getPhoneNumb().get(z));
+                                buff.write(stTel[l + 1]);
+                                fieldTel[l + 1].setAccessible(false);
+                                l++;
+                            }
+                            if(z+1 != list.get(j).getPhoneNumb().size())
+                            buff.write(" ");
+                        }
+                        buff.write("\",");
+                    }else {
+                        Field h = list.get(j);
+                        st[k] = "" + field[k].get(h);
+                        buff.write(" " + st[k] + ",");
+                        field[k].setAccessible(false);
+                    }
                 }
                     buff.write("\n");
             }
+
             buff.flush();
         }catch (IOException e){
             e.printStackTrace();
         }catch (IllegalAccessException e){
             e.printStackTrace();
         }
-            return list;
+            return list ;
         }
     public List<Field> getFromFile(){
+        File file = new File("testCvs.csv");
+        list.clear();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             while (bufferedReader.read() != -1) {
                 String[] st = bufferedReader.readLine().split(",");
@@ -43,16 +69,17 @@ public class CsvRepositories implements Repositories {
                 java.lang.reflect.Field[] field = clazz.getDeclaredFields();
                 for (int i = 0; i < field.length; i++) {
                     field[i].setAccessible(true);
-                    if(field[i].getType().equals(int.class)){
+                    if(field[i].getType().equals(int.class)){       //если поле типа int
                         int id = Integer.parseInt(st[i]);
                         field[i].set(ob, id);
-                    }else if(field[i].getType().equals(List.class)){
-                        String[]sList = st[i].split(",");
-                        Class clazz2 = PhoneNumb.class;
-                        Object obTel = clazz2.newInstance();
-                        java.lang.reflect.Field[] fieldTel = clazz2.getDeclaredFields();
-                        List<PhoneNumb> listTel = new ArrayList<>();
+                    }else if(field[i].getType().equals(List.class)){            //если поле типа List
+
+                        String[]sList = st[i].substring(st[i].indexOf("\"")+1,st[i].lastIndexOf("\"")).split(" ");
+                        Class clazzPhoneNumb = PhoneNumb.class;
+                        java.lang.reflect.Field[] fieldTel = clazzPhoneNumb.getDeclaredFields();
+                        List<PhoneNumb> listPhoneNumb = new ArrayList<>();
                         for (int j = 0; j <sList.length ; j++) {
+                            Object obTel = clazzPhoneNumb.newInstance();
                             String[]sTel = sList[j].split("-");
                             for (int k = 0; k <fieldTel.length ; k++) {
                                 fieldTel[k].setAccessible(true);
@@ -60,10 +87,11 @@ public class CsvRepositories implements Repositories {
                                 fieldTel[k].setAccessible(false);
                             }
                             PhoneNumb tempTel = (PhoneNumb) obTel;
-                            listTel.add(tempTel);
+                            listPhoneNumb.add(tempTel);
                         }
-                        field[i].set(ob,listTel);
-                    }else{
+                        field[i].set(ob,listPhoneNumb);
+
+                    }else{                                  //если поле типа String
                         field[i].set(ob, st[i].trim());
                     }
                     field[i].setAccessible(false);
@@ -83,7 +111,7 @@ public class CsvRepositories implements Repositories {
 
     @Override
     public void addField(Field temp) {
-       // list = getFromFile();
+        list = getFromFile();
         list.add(temp);
         addInFile();
     }
