@@ -25,6 +25,6 @@ public class PhoneNumb implements Serializable{
 
     @Override
     public String toString() {
-        return type+"-"+number;
+        return type+" "+number;
     }
 }
