@@ -4,13 +4,18 @@ import model.PhoneNumb;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CsvRepositories implements Repositories {
     private List<Field>list = new ArrayList<>();
     private int i;
+    private String nameRepositories;
+    public CsvRepositories(String nameRepositories){
+        this.nameRepositories = nameRepositories;
+    }
     public List<Field> addInFile(){
-        File file = new File("testCvs.csv");
+        File file = new File(nameRepositories);
         try(BufferedWriter buff = new BufferedWriter(new FileWriter(file))) {
             // создаём экземпляр класса Сlass типа Field....используем reflection api
             Class clazz = Field.class;
@@ -63,7 +68,7 @@ public class CsvRepositories implements Repositories {
             return list ;
         }
     public List<Field> getFromFile(){
-        File file = new File("testCvs.csv");
+        File file = new File(nameRepositories);
         list.clear();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             while (bufferedReader.read() != -1) {
@@ -102,8 +107,8 @@ public class CsvRepositories implements Repositories {
                             listPhoneNumb.add(tempTel);
                         }
                         field[i].set(ob,listPhoneNumb);
-
-                    }else{                                  //если поле типа String
+                        // если поле типа String
+                    }else{
                         field[i].set(ob, st[i].trim());
                     }
                     field[i].setAccessible(false);
@@ -129,37 +134,55 @@ public class CsvRepositories implements Repositories {
 
     @Override
     public Field search(String st) {
-        return null;
+        list = getFromFile();
+        for(int i = 0;i<list.size();i++){
+            if(list.get(i).getLastname().equals(st)){
+                this.i = i;
+                return  list.get(i);
+            }
+        }
+        return  null;
     }
 
     @Override
     public void removeField(Field temp) {
-
+        list = getFromFile();
+        list.remove(this.i);
+        addInFile();
     }
 
     @Override
     public void editField(Field temp) {
-
+        list.set(this.i,temp);
+        addInFile();
     }
 
     @Override
     public void sortLastName() {
-
+        list = getFromFile();
+        Collections.sort(list, CompareField.compareLastName);
+        addInFile();
     }
 
     @Override
     public void sortName() {
-
+        list = getFromFile();
+        Collections.sort(list, CompareField.compareName);
+        addInFile();
     }
 
     @Override
     public void sortTag() {
-
+        list = getFromFile();
+        Collections.sort(list, CompareField.compareTag);
+        addInFile();
     }
 
     @Override
     public void sortId() {
-
+        list = getFromFile();
+        Collections.sort(list, CompareField.compareID);
+        addInFile();
     }
 
     @Override
@@ -170,22 +193,50 @@ public class CsvRepositories implements Repositories {
 
     @Override
     public List<Field> searchLastName(String st) {
-        return null;
+        list = getFromFile();
+        List<Field>temp = new ArrayList<>();
+        for (Field h : list) {
+            if(h.getLastname().equals(st)){
+                temp.add(h);
+            }
+        }
+        return temp;
     }
 
     @Override
     public List<Field> searchName(String st) {
-        return null;
+        list = getFromFile();
+        List<Field>temp = new ArrayList<>();
+        for (Field h : list) {
+            if(h.getName().equals(st)){
+                temp.add(h);
+            }
+        }
+        return temp;
     }
 
     @Override
     public List<Field> searchTag(String st) {
-        return null;
+        list = getFromFile();
+        List<Field>temp = new ArrayList<>();
+        for (Field h : list) {
+            if(h.getTeg().equals(st)){
+                temp.add(h);
+            }
+        }
+        return temp;
     }
 
     @Override
     public List<Field> searchDate(String st) {
-        return null;
+        list = getFromFile();
+        List<Field>temp = new ArrayList<>();
+        for (Field h : list) {
+            if(h.getDate().equals(st)){
+                temp.add(h);
+            }
+        }
+        return temp;
     }
 
 }

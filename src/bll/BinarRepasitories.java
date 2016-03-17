@@ -13,9 +13,13 @@ import java.util.List;
 public class BinarRepasitories implements Repositories {
     private List<Field>list = new ArrayList<>();
     private int i;
+    private String nameRepositories;
+    public BinarRepasitories(String nameRepositories){
+        this.nameRepositories = nameRepositories;
+    }
     private List<Field> addInFile(){
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream("test.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream(nameRepositories);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(list);
         }catch (Exception e){
@@ -25,7 +29,7 @@ public class BinarRepasitories implements Repositories {
     }
     private List<Field>getFromFile(){
         try {
-            FileInputStream fileInputStream = new FileInputStream("test.txt");
+            FileInputStream fileInputStream = new FileInputStream(nameRepositories);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             list = (List<Field>) objectInputStream.readObject();
         }catch (Exception e){

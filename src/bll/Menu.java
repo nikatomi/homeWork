@@ -39,4 +39,9 @@ public class Menu {
         System.out.println("3.Поиск по тэгу");
         System.out.println("4.Поиск по дате");
     }
+    public static void repositoriesMenu(){
+        System.out.println("1.Создать новый репозиторий");
+        System.out.println("2.Выбрать репозиторий");
+        System.out.println("3.Шаг назад");
+    }
 }
