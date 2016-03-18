@@ -10,6 +10,8 @@ import java.text.DateFormat;
 import java.util.*;
 import java.util.List;
 
+// TODO есть падения приожения при создании нового репозитория
+
 public class Task01 {
     public static void main(String[] args) {
         int exit = 0,exitRep;

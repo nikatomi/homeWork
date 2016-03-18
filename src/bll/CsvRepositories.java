@@ -7,13 +7,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+// TODO не стоит пропускать заголовки в csv
 public class CsvRepositories implements Repositories {
+    // TODO имена, более значимые давать
     private List<Field>list = new ArrayList<>();
     private int i;
     private String nameRepositories;
     public CsvRepositories(String nameRepositories){
         this.nameRepositories = nameRepositories;
     }
+
+    //TODO отделяйте методы пробелами, чтобы проще читать было
     public List<Field> addInFile(){
         File file = new File(nameRepositories);
         try(BufferedWriter buff = new BufferedWriter(new FileWriter(file))) {
@@ -67,6 +71,12 @@ public class CsvRepositories implements Repositories {
         }
             return list ;
         }
+
+    // TODO по рефлекшенам есть нескольно важных моментов. Во-первых они заменяют приложение. И если можно
+    // их избежать, лучше избежать. В данном случае использование не совсем разумно, т.к. все равно этот
+    // участок кода привязан к конкретной реализации (и классу), поэтому гораздо проще было просто распарсить
+    // reflection было бы разумно применить для написания универсального класса, который сможет
+    // работать с любым классом.
     public List<Field> getFromFile(){
         File file = new File(nameRepositories);
         list.clear();

@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+// TODO 4. переопределеить equals и hashCode
 public class Field implements Serializable{
     private int id;
     private String name;
+    // TODO 1. назвать в camelCase т.е. lastname -> lastName
     private String lastname;
     private List<PhoneNumb> phoneNumb;
     private String teg;

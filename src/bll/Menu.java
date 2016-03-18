@@ -1,5 +1,6 @@
 package bll;
 
+// TODO этот класс не часть bll перенести в пакет посвященный UI
 public class Menu {
     public static void mainMenu(){
         System.out.println("1.Добавить запись в репозиторий");

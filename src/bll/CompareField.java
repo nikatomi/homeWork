@@ -4,7 +4,10 @@ import model.Field;
 import java.util.Comparator;
 public class CompareField {
 
-public static Comparator<Field>compareLastName = new Comparator<Field>() {
+// TODO такой подход исползуется, но можно чуть улучшить добавить final, чтобы эти переменные не могли переопределиться
+// TODO также можно добавить фабрику, которая будет возращать нужный кампаратор по названию, об этом на занятии
+    public static Comparator<Field>compareLastName = new Comparator<Field>() {
+
     @Override
     public int compare(Field o1, Field o2) {
         String st = o1.getLastname();
