@@ -12,7 +12,6 @@ import java.util.List;
 
 public class BinarRepasitories implements Repositories {
     private List<Field>list = new ArrayList<>();
-    private int i;
     private String nameRepositories;
     public BinarRepasitories(String nameRepositories){
         this.nameRepositories = nameRepositories;
@@ -64,8 +63,8 @@ public class BinarRepasitories implements Repositories {
     }
 
     @Override
-    public void editField(Field temp) {
-        list.set(this.i,temp);
+    public void editField(Field temp, int i) {
+        list.set(i,temp);
         addInFile();
     }
     public void sortLastName(){

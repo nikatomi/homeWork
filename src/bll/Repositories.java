@@ -9,7 +9,7 @@ public interface Repositories {
 
     void removeField(int i);
 
-    void editField(Field temp);
+    void editField(Field temp,int i);
 
     void sortLastName();
 

@@ -169,7 +169,7 @@ public class Task01 {
                                     break;
                                 case 5:
                                     temp.setDate(DateFormat.getDateInstance(DateFormat.SHORT).format(date));
-                                    repositories.editField(temp);
+                                    repositories.editField(temp,z);
                                     exit3 = 1;
                                     break;
                                 default:

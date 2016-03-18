@@ -9,7 +9,6 @@ import java.util.List;
 
 public class CsvRepositories implements Repositories {
     private List<Field>list = new ArrayList<>();
-    private int i;
     private String nameRepositories;
     public CsvRepositories(String nameRepositories){
         this.nameRepositories = nameRepositories;
@@ -151,8 +150,8 @@ public class CsvRepositories implements Repositories {
     }
 
     @Override
-    public void editField(Field temp) {
-        list.set(this.i,temp);
+    public void editField(Field temp, int i) {
+        list.set(i,temp);
         addInFile();
     }
 
