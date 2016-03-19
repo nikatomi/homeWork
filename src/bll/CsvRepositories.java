@@ -141,6 +141,7 @@ public class CsvRepositories implements Repositories {
         addInFile();
     }
 
+    // TODO не совсем очевидное поведение метода, не плохо оставлять комментарии
     @Override
     public int search(String st) {
         list = getFromFile();
