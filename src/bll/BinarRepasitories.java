@@ -12,7 +12,6 @@ import java.util.List;
 
 public class BinarRepasitories implements Repositories {
     private List<Field>list = new ArrayList<>();
-    private int i;
     private String nameRepositories;
     public BinarRepasitories(String nameRepositories){
         this.nameRepositories = nameRepositories;
@@ -46,27 +45,26 @@ public class BinarRepasitories implements Repositories {
     }
 
     @Override
-    public Field search(String st) {
+    public int search(String st) {
         list = getFromFile();
         for(int i = 0;i<list.size();i++){
             if(list.get(i).getLastname().equals(st)){
-                this.i = i;
-                return  list.get(i);
+                return  i;
             }
         }
-        return  null;
+        return  -1;
     }
 
     @Override
-    public void removeField(Field temp) {
+    public void removeField(int i) {
         list = getFromFile();
-        list.remove(this.i);
+        list.remove(i);
         addInFile();
     }
 
     @Override
-    public void editField(Field temp) {
-        list.set(this.i,temp);
+    public void editField(Field temp, int i) {
+        list.set(i,temp);
         addInFile();
     }
     public void sortLastName(){

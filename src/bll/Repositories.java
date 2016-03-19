@@ -5,11 +5,11 @@ import java.util.List;
 public interface Repositories {
     void addField(Field temp);
 
-    Field search(String st);
+    int search(String st);
 
-    void removeField(Field temp);
+    void removeField(int i);
 
-    void editField(Field temp);
+    void editField(Field temp,int i);
 
     /// TODO  не разбивать интерфейс, объеденить в один метод с параметром>>>
     void sortLastName();
