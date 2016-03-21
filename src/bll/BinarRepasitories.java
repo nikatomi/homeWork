@@ -1,6 +1,6 @@
 package bll;
 
-import model.Field;
+import model.Record;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,12 +12,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class BinarRepasitories implements Repositories {
-    private List<Field>list = new ArrayList<>();
+    private List<Record>list = new ArrayList<>();
     private String nameRepositories;
     public BinarRepasitories(String nameRepositories){
         this.nameRepositories = nameRepositories;
     }
-    private List<Field> addInFile(){
+    private List<Record> addInFile(){
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(nameRepositories);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -27,11 +27,11 @@ public class BinarRepasitories implements Repositories {
         }
         return list;
     }
-    private List<Field>getFromFile(){
+    private List<Record>getFromFile(){
         try {
             FileInputStream fileInputStream = new FileInputStream(nameRepositories);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            list = (List<Field>) objectInputStream.readObject();
+            list = (List<Record>) objectInputStream.readObject();
         }catch (Exception e){
             System.out.println("Файл пуст");
         }
@@ -39,7 +39,7 @@ public class BinarRepasitories implements Repositories {
     }
 
     @Override
-    public void addField(Field temp) {
+    public void addRecord(Record temp) {
         list = getFromFile();
         list.add(temp);
         addInFile();
@@ -64,30 +64,30 @@ public class BinarRepasitories implements Repositories {
     }
 
     @Override
-    public void editField(Field temp, int i) {
+    public void editRecord(Record temp, int i) {
         list.set(i,temp);
         addInFile();
     }
 
     @Override
-    public  void sort(Comparator<Field> ob) {
+    public  void sort(Comparator<Record> ob) {
         list = getFromFile();
         Collections.sort(list,  ob);
         addInFile();
     }
 
     @Override
-    public List<Field> getList() {
+    public List<Record> getList() {
         list = getFromFile();
         return list;
     }
 
-    public List<Field> searchField(String st,String fieldName) throws NoSuchFieldException, IllegalAccessException {
+    public List<Record> searchField(String st, String fieldName) throws NoSuchFieldException, IllegalAccessException {
         list = getFromFile();
-        List<Field>temp = new ArrayList<>();
-        Class clazz = Field.class;
+        List<Record>temp = new ArrayList<>();
+        Class clazz = Record.class;
         java.lang.reflect.Field field = clazz.getDeclaredField(fieldName);
-        for (Field h:list) {
+        for (Record h:list) {
             field.setAccessible(true);
             if(field.get(h).equals(st)){
                 temp.add(h);

@@ -1,5 +1,5 @@
 package bll;
-import model.Field;
+import model.Record;
 import model.PhoneNumb;
 
 import java.io.*;
@@ -9,17 +9,17 @@ import java.util.Comparator;
 import java.util.List;
 
 public class CsvRepositories implements Repositories {
-    private List<Field>list = new ArrayList<>();
+    private List<Record>list = new ArrayList<>();
     private String nameRepositories;
     public CsvRepositories(String nameRepositories){
         this.nameRepositories = nameRepositories;
     }
-    public List<Field> addInFile(){
+    public List<Record> addInFile(){
         File file = new File(nameRepositories);
         try(BufferedWriter buff = new BufferedWriter(new FileWriter(file))) {
-            // создаём экземпляр класса Сlass типа Field....используем reflection api
-            Class clazz = Field.class;
-            // в массив типа Field(reflect) вводим все имеющиеся поля объекта типа Field(model)
+            // создаём экземпляр класса Сlass типа Record....используем reflection api
+            Class clazz = Record.class;
+            // в массив типа Record(reflect) вводим все имеющиеся поля объекта типа Record(model)
             java.lang.reflect.Field[] field = clazz.getDeclaredFields();
             // инициализируем массив типа String
             String[]st = new String[field.length];
@@ -50,7 +50,7 @@ public class CsvRepositories implements Repositories {
                         }
                         buff.write("\",");
                     }else {
-                        Field h = list.get(j);
+                        Record h = list.get(j);
                         st[k] = "" + field[k].get(h);
                         buff.write(" " + st[k] + ",");
                         field[k].setAccessible(false);
@@ -67,17 +67,17 @@ public class CsvRepositories implements Repositories {
         }
             return list ;
         }
-    public List<Field> getFromFile(){
+    public List<Record> getFromFile(){
         File file = new File(nameRepositories);
         list.clear();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             while (bufferedReader.read() != -1) {
                 // используем массив типа String для хранения строки из файла и разделяем строку на элементы массива
                 String[] st = bufferedReader.readLine().split(",");
-                // создаём экземпляр класса Сlass типа Field....используем reflection api
-                Class clazz = Field.class;
-                Field ob = new Field();
-                // в массив типа Field(reflect) вводим все имеющиеся поля объекта типа Field(model)
+                // создаём экземпляр класса Сlass типа Record....используем reflection api
+                Class clazz = Record.class;
+                Record ob = new Record();
+                // в массив типа Record(reflect) вводим все имеющиеся поля объекта типа Record(model)
                 java.lang.reflect.Field[] field = clazz.getDeclaredFields();
                 for (int i = 0; i < field.length; i++) {
                     // setAccessible даёт вазможность изменять закрытые поля объекта
@@ -92,7 +92,7 @@ public class CsvRepositories implements Repositories {
                         String[]sList = st[i].substring(st[i].indexOf("\"")+1,st[i].lastIndexOf("\"")).split(" ");
                         // создаём экземпляр класса Сlass типа PhoneNumb....используем reflection api
                         Class clazzPhoneNumb = PhoneNumb.class;
-                        // в массив типа Field(reflect) вводим все имеющиеся поля объекта типа PhoneNumb
+                        // в массив типа Record(reflect) вводим все имеющиеся поля объекта типа PhoneNumb
                         java.lang.reflect.Field[] fieldTel = clazzPhoneNumb.getDeclaredFields();
                         List<PhoneNumb> listPhoneNumb = new ArrayList<>();
                         for (int j = 0; j <sList.length ; j++) {
@@ -126,7 +126,7 @@ public class CsvRepositories implements Repositories {
     }
 
     @Override
-    public void addField(Field temp) {
+    public void addRecord(Record temp) {
         list = getFromFile();
         list.add(temp);
         addInFile();
@@ -151,30 +151,30 @@ public class CsvRepositories implements Repositories {
     }
 
     @Override
-    public void editField(Field temp, int i) {
+    public void editRecord(Record temp, int i) {
         list.set(i,temp);
         addInFile();
     }
     @Override
-    public  void sort(Comparator<Field>ob) {
+    public  void sort(Comparator<Record>ob) {
         list = getFromFile();
         Collections.sort(list, ob);
         addInFile();
     }
 
     @Override
-    public List<Field> getList() {
+    public List<Record> getList() {
         list = getFromFile();
         return list;
     }
 
     @Override
-    public List<Field> searchField(String st, String fieldName) throws NoSuchFieldException, IllegalAccessException {
+    public List<Record> searchField(String st, String fieldName) throws NoSuchFieldException, IllegalAccessException {
         list = getFromFile();
-        List<Field>temp = new ArrayList<>();
-        Class clazz = Field.class;
+        List<Record>temp = new ArrayList<>();
+        Class clazz = Record.class;
         java.lang.reflect.Field field = clazz.getDeclaredField(fieldName);
-        for (Field h:list) {
+        for (Record h:list) {
             field.setAccessible(true);
             if(field.get(h).equals(st)){
                 temp.add(h);

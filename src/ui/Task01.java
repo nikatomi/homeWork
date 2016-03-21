@@ -1,7 +1,7 @@
 package ui;
 
 import bll.*;
-import model.Field;
+import model.Record;
 import model.PhoneNumb;
 
 import java.io.File;
@@ -91,7 +91,7 @@ public class Task01 {
     public static void consolInterface(Repositories repositories) throws NoSuchFieldException, IllegalAccessException {
         int exit2, exit1, exit3, z;
         Scanner sc = new Scanner(System.in);
-        List<Field> list;
+        List<Record> list;
         Date date = new Date();
         exit1 = 0;
             while (exit1 == 0) {
@@ -100,7 +100,7 @@ public class Task01 {
                 // ссылке типа Repositories инициализируем экземпляр класcа бинарного файла
                 switch (sc.nextInt()) {
                     case 1:
-                        Field temp = new Field();
+                        Record temp = new Record();
                         System.out.println("Введите фамилию");
                         temp.setLastname(sc.next());
                         System.out.println("Введите имя");
@@ -128,7 +128,7 @@ public class Task01 {
                         }
                         temp.setId(i);
                         temp.setDate(DateFormat.getDateInstance(DateFormat.SHORT).format(date));
-                        repositories.addField(temp);
+                        repositories.addRecord(temp);
                         break;
                     case 2:
                         System.out.println("Введите фамилию");
@@ -166,7 +166,7 @@ public class Task01 {
                                     break;
                                 case 5:
                                     temp.setDate(DateFormat.getDateInstance(DateFormat.SHORT).format(date));
-                                    repositories.editField(temp,z);
+                                    repositories.editRecord(temp,z);
                                     exit3 = 1;
                                     break;
                                 default:
@@ -205,7 +205,7 @@ public class Task01 {
                         }
                         break;
                     case 5:
-                        for (Field h : repositories.getList()) {
+                        for (Record h : repositories.getList()) {
                             System.out.println(h.toString());
                         }
                         break;
@@ -216,28 +216,28 @@ public class Task01 {
                                 System.out.println("Введите искомую фамилию");
                                 String fieldName = "lastname";
                                 list = repositories.searchField(sc.next(),fieldName);
-                                for (Field h : list) {
+                                for (Record h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
                             case 2:
                                 System.out.println("Введите имя");
                                 list = repositories.searchField(sc.next(),"name");
-                                for (Field h : list) {
+                                for (Record h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
                             case 3:
                                 System.out.println("Введите тэг");
                                 list = repositories.searchField(sc.next(),"teg");
-                                for (Field h : list) {
+                                for (Record h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
                             case 4:
                                 System.out.println("Введите дату");
                                 list = repositories.searchField(sc.next(),"date");
-                                for (Field h : list) {
+                                for (Record h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;

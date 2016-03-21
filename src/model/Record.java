@@ -1,18 +1,17 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
-public class Field implements Serializable{
+public class Record implements Serializable{
     private int id;
     private String name;
     private String lastname;
     private List<PhoneNumb> phoneNumb;
     private String teg;
     private String date;
-    public Field(){}
-    public Field(int id, String name, String lastname, List<PhoneNumb> phoneNumb, String teg) {
+    public Record(){}
+    public Record(int id, String name, String lastname, List<PhoneNumb> phoneNumb, String teg) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -85,7 +84,7 @@ public class Field implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Field field = (Field) o;
+        Record field = (Record) o;
 
         if (id != field.id) return false;
         if (name != null ? !name.equals(field.name) : field.name != null) return false;
