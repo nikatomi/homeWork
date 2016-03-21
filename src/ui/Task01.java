@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.List;
 
 public class Task01 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
         int exit = 0, exitRep;
         Scanner sc = new Scanner(System.in);
         String nameRepositories;
@@ -88,7 +88,7 @@ public class Task01 {
         }
     }
 
-    public static void consolInterface(Repositories repositories) {
+    public static void consolInterface(Repositories repositories) throws NoSuchFieldException, IllegalAccessException {
         int exit2, exit1, exit3, z;
         Scanner sc = new Scanner(System.in);
         List<Field> list;
@@ -214,28 +214,29 @@ public class Task01 {
                         switch (sc.nextInt()) {
                             case 1:
                                 System.out.println("Введите искомую фамилию");
-                                list = repositories.searchLastName(sc.next());
+                                String fieldName = "lastname";
+                                list = repositories.searchField(sc.next(),fieldName);
                                 for (Field h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
                             case 2:
                                 System.out.println("Введите имя");
-                                list = repositories.searchName(sc.next());
+                                list = repositories.searchField(sc.next(),"name");
                                 for (Field h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
                             case 3:
                                 System.out.println("Введите тэг");
-                                list = repositories.searchTag(sc.next());
+                                list = repositories.searchField(sc.next(),"teg");
                                 for (Field h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
                             case 4:
                                 System.out.println("Введите дату");
-                                list = repositories.searchDate(sc.next());
+                                list = repositories.searchField(sc.next(),"date");
                                 for (Field h : list) {
                                     System.out.println(h.toString());
                                 }

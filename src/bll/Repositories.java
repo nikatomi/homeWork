@@ -17,11 +17,5 @@ public interface Repositories {
 
     List<Field> getList();
 
-    List<Field> searchLastName(String st);
-
-    List<Field> searchName(String st);
-
-    List<Field> searchTag(String st);
-
-    List<Field> searchDate(String st);
+    List<Field> searchField(String st,String fieldName)throws NoSuchFieldException,IllegalAccessException;
 }

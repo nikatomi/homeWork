@@ -81,52 +81,20 @@ public class BinarRepasitories implements Repositories {
         list = getFromFile();
         return list;
     }
-    public List<Field> searchLastName(String st){
+
+    public List<Field> searchField(String st,String fieldName) throws NoSuchFieldException, IllegalAccessException {
         list = getFromFile();
         List<Field>temp = new ArrayList<>();
-        for (Field h : list) {
-            if(h.getLastname().equals(st)){
+        Class clazz = Field.class;
+        java.lang.reflect.Field field = clazz.getDeclaredField(fieldName);
+        for (Field h:list) {
+            field.setAccessible(true);
+            if(field.get(h).equals(st)){
                 temp.add(h);
             }
+            field.setAccessible(false);
         }
         return temp;
     }
-
-    @Override
-    public List<Field> searchName(String st) {
-        list = getFromFile();
-        List<Field>temp = new ArrayList<>();
-        for (Field h : list) {
-            if(h.getName().equals(st)){
-                temp.add(h);
-            }
-        }
-        return temp;
-    }
-
-    @Override
-    public List<Field> searchTag(String st) {
-        list = getFromFile();
-        List<Field>temp = new ArrayList<>();
-        for (Field h : list) {
-            if(h.getTeg().equals(st)){
-                temp.add(h);
-            }
-        }
-        return temp;
-    }
-
-    @Override
-    public List<Field> searchDate(String st) {
-        list = getFromFile();
-        List<Field>temp = new ArrayList<>();
-        for (Field h : list) {
-            if(h.getDate().equals(st)){
-                temp.add(h);
-            }
-        }
-        return temp;
-    }
-
 }
 
