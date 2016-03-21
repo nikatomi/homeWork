@@ -11,15 +11,6 @@ public class Field implements Serializable{
     private List<PhoneNumb> phoneNumb;
     private String teg;
     private String date;
-//    private final static String
-//            TMPL = "======================================\n" +
-//                   "ID : %d \n" +
-//                   "Фамилия : %s \n" +
-//                   "Имя : %s \n" +
-//                   "Тэг : %s \n" +
-//                   "Телефон : %s \n" +
-//                   "Дата изменения записи : %s \n" +
-//                   "======================================\n";
     public Field(){}
     public Field(int id, String name, String lastname, List<PhoneNumb> phoneNumb, String teg) {
         this.id = id;
@@ -88,4 +79,21 @@ public class Field implements Serializable{
                 "Дата изменения записи : %s \n" +
                 "======================================\n",id,lastname,name,teg,phoneNumb.toString(),date);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Field field = (Field) o;
+
+        if (id != field.id) return false;
+        if (name != null ? !name.equals(field.name) : field.name != null) return false;
+        if (lastname != null ? !lastname.equals(field.lastname) : field.lastname != null) return false;
+        if (phoneNumb != null ? !phoneNumb.equals(field.phoneNumb) : field.phoneNumb != null) return false;
+        if (teg != null ? !teg.equals(field.teg) : field.teg != null) return false;
+        return date != null ? date.equals(field.date) : field.date == null;
+
+    }
+
 }

@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class BinarRepasitories implements Repositories {
@@ -67,24 +68,11 @@ public class BinarRepasitories implements Repositories {
         list.set(i,temp);
         addInFile();
     }
-    public void sortLastName(){
+
+    @Override
+    public  void sort(Comparator<Field> ob) {
         list = getFromFile();
-        Collections.sort(list, CompareField.compareLastName);
-        addInFile();
-    }
-    public void sortName(){
-        list = getFromFile();
-        Collections.sort(list, CompareField.compareName);
-        addInFile();
-    }
-    public void sortTag(){
-        list = getFromFile();
-        Collections.sort(list, CompareField.compareTag);
-        addInFile();
-    }
-    public void sortId(){
-        list = getFromFile();
-        Collections.sort(list, CompareField.compareID);
+        Collections.sort(list,  ob);
         addInFile();
     }
 

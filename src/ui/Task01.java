@@ -1,11 +1,8 @@
 package ui;
 
-import bll.BinarRepasitories;
-import bll.CsvRepositories;
-import bll.Repositories;
+import bll.*;
 import model.Field;
 import model.PhoneNumb;
-import bll.Menu;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -122,7 +119,7 @@ public class Task01 {
                         temp.setPhoneNumb(phoneNumbs);
                         System.out.println("Введите тег");
                         temp.setTeg(sc.next());
-                        repositories.sortId();
+                        repositories.sort(CompareField.compareID);
                         int i;
                         try {
                             i = repositories.getList().get(repositories.getList().size() - 1).getId() + 1;
@@ -191,16 +188,16 @@ public class Task01 {
                         Menu.sortMenu();
                         switch (sc.nextInt()) {
                             case 1:
-                                repositories.sortLastName();
+                                repositories.sort(CompareField.compareLastName);
                                 break;
                             case 2:
-                                repositories.sortName();
+                                repositories.sort(CompareField.compareName);
                                 break;
                             case 3:
-                                repositories.sortTag();
+                                repositories.sort(CompareField.compareTag);
                                 break;
                             case 4:
-                                repositories.sortId();
+                                repositories.sort(CompareField.compareID);
                                 break;
                             default:
                                 System.out.println("Ошибка ввода");

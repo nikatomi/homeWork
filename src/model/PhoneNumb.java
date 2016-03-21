@@ -27,4 +27,17 @@ public class PhoneNumb implements Serializable{
     public String toString() {
         return type+" "+number;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PhoneNumb phoneNumb = (PhoneNumb) o;
+
+        if (type != null ? !type.equals(phoneNumb.type) : phoneNumb.type != null) return false;
+        return number != null ? number.equals(phoneNumb.number) : phoneNumb.number == null;
+
+    }
+
 }

@@ -1,5 +1,7 @@
 package bll;
 import model.Field;
+
+import java.util.Comparator;
 import java.util.List;
 
 public interface Repositories {
@@ -11,13 +13,7 @@ public interface Repositories {
 
     void editField(Field temp,int i);
 
-    void sortLastName();
-
-    void sortName();
-
-    void sortTag();
-
-    void sortId();
+    void sort(Comparator<Field> ob);
 
     List<Field> getList();
 

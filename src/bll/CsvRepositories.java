@@ -5,6 +5,7 @@ import model.PhoneNumb;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CsvRepositories implements Repositories {
@@ -154,32 +155,10 @@ public class CsvRepositories implements Repositories {
         list.set(i,temp);
         addInFile();
     }
-
     @Override
-    public void sortLastName() {
+    public  void sort(Comparator<Field>ob) {
         list = getFromFile();
-        Collections.sort(list, CompareField.compareLastName);
-        addInFile();
-    }
-
-    @Override
-    public void sortName() {
-        list = getFromFile();
-        Collections.sort(list, CompareField.compareName);
-        addInFile();
-    }
-
-    @Override
-    public void sortTag() {
-        list = getFromFile();
-        Collections.sort(list, CompareField.compareTag);
-        addInFile();
-    }
-
-    @Override
-    public void sortId() {
-        list = getFromFile();
-        Collections.sort(list, CompareField.compareID);
+        Collections.sort(list, ob);
         addInFile();
     }
 
