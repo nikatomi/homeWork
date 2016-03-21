@@ -182,7 +182,7 @@ public class Task01 {
                             System.out.println("Запись не найдена");
                             break;
                         }
-                        repositories.removeField(z);
+                        repositories.removeRecord(z);
                         break;
                     case 4:
                         Menu.sortMenu();
@@ -215,28 +215,28 @@ public class Task01 {
                             case 1:
                                 System.out.println("Введите искомую фамилию");
                                 String fieldName = "lastname";
-                                list = repositories.searchField(sc.next(),fieldName);
+                                list = repositories.searchRecord(sc.next(),fieldName);
                                 for (Record h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
                             case 2:
                                 System.out.println("Введите имя");
-                                list = repositories.searchField(sc.next(),"name");
+                                list = repositories.searchRecord(sc.next(),"name");
                                 for (Record h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
                             case 3:
                                 System.out.println("Введите тэг");
-                                list = repositories.searchField(sc.next(),"teg");
+                                list = repositories.searchRecord(sc.next(),"teg");
                                 for (Record h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
                             case 4:
                                 System.out.println("Введите дату");
-                                list = repositories.searchField(sc.next(),"date");
+                                list = repositories.searchRecord(sc.next(),"date");
                                 for (Record h : list) {
                                     System.out.println(h.toString());
                                 }

@@ -9,7 +9,7 @@ public interface Repositories {
 
     int search(String st);
 
-    void removeField(int i);
+    void removeRecord(int i);
 
     void editRecord(Record temp, int i);
 
@@ -17,5 +17,5 @@ public interface Repositories {
 
     List<Record> getList();
 
-    List<Record> searchField(String st, String fieldName)throws NoSuchFieldException,IllegalAccessException;
+    List<Record> searchRecord(String st, String fieldName)throws NoSuchFieldException,IllegalAccessException;
 }

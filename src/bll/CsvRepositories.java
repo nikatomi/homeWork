@@ -144,7 +144,7 @@ public class CsvRepositories implements Repositories {
     }
 
     @Override
-    public void removeField(int i) {
+    public void removeRecord(int i) {
         list = getFromFile();
         list.remove(i);
         addInFile();
@@ -169,7 +169,7 @@ public class CsvRepositories implements Repositories {
     }
 
     @Override
-    public List<Record> searchField(String st, String fieldName) throws NoSuchFieldException, IllegalAccessException {
+    public List<Record> searchRecord(String st, String fieldName) throws NoSuchFieldException, IllegalAccessException {
         list = getFromFile();
         List<Record>temp = new ArrayList<>();
         Class clazz = Record.class;
