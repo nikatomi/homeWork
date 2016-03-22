@@ -4,7 +4,7 @@ import model.Record;
 import java.util.Comparator;
 import java.util.List;
 
-public interface Repositories {
+public interface IntefaceRepository {
     void addRecord(Record temp);
 
     int search(String st);

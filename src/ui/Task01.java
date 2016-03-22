@@ -14,7 +14,7 @@ public class Task01 {
         int exit = 0, exitRep;
         Scanner sc = new Scanner(System.in);
         String nameRepositories;
-        Repositories repositories;
+        Repository repositories;
         while (exit == 0) {
             Menu.fileMenu();
             switch (sc.nextInt()) {
@@ -88,7 +88,7 @@ public class Task01 {
         }
     }
 
-    public static void consolInterface(Repositories repositories) throws NoSuchFieldException, IllegalAccessException {
+    public static void consolInterface(IntefaceRepository repositories) throws NoSuchFieldException, IllegalAccessException {
         int exit2, exit1, exit3, z;
         Scanner sc = new Scanner(System.in);
         List<Record> list;
@@ -97,7 +97,7 @@ public class Task01 {
             while (exit1 == 0) {
                 // вызов главного меню
                 Menu.mainMenu();
-                // ссылке типа Repositories инициализируем экземпляр класcа бинарного файла
+                // ссылке типа IntefaceRepository инициализируем экземпляр класcа бинарного файла
                 switch (sc.nextInt()) {
                     case 1:
                         Record temp = new Record();

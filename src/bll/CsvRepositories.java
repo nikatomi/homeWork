@@ -3,23 +3,19 @@ import model.Record;
 import model.PhoneNumb;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.util.*;
 
-public class CsvRepositories implements Repositories {
-    private List<Record>list = new ArrayList<>();
-    private String nameRepositories;
+public class CsvRepositories extends Repository {
     public CsvRepositories(String nameRepositories){
-        this.nameRepositories = nameRepositories;
+        super(nameRepositories);
     }
-    public List<Record> addInFile(){
+    protected List<Record> addInFile(){
         File file = new File(nameRepositories);
         try(BufferedWriter buff = new BufferedWriter(new FileWriter(file))) {
             // создаём экземпляр класса Сlass типа Record....используем reflection api
             Class clazz = Record.class;
-            // в массив типа Record(reflect) вводим все имеющиеся поля объекта типа Record(model)
+            // в массив типа Field(reflect) вводим все имеющиеся поля объекта типа Record(model)
             java.lang.reflect.Field[] field = clazz.getDeclaredFields();
             // инициализируем массив типа String
             String[]st = new String[field.length];
@@ -58,7 +54,6 @@ public class CsvRepositories implements Repositories {
                 }
                     buff.write("\n");
             }
-
             buff.flush();
         }catch (IOException e){
             e.printStackTrace();
@@ -67,7 +62,7 @@ public class CsvRepositories implements Repositories {
         }
             return list ;
         }
-    public List<Record> getFromFile(){
+    protected List<Record> getFromFile(){
         File file = new File(nameRepositories);
         list.clear();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
@@ -124,64 +119,4 @@ public class CsvRepositories implements Repositories {
         }
         return list;
     }
-
-    @Override
-    public void addRecord(Record temp) {
-        list = getFromFile();
-        list.add(temp);
-        addInFile();
-    }
-
-    @Override
-    public int search(String st) {
-        list = getFromFile();
-        for(int i = 0;i<list.size();i++){
-            if(list.get(i).getLastname().equals(st)){
-                return  i;
-            }
-        }
-        return  -1;
-    }
-
-    @Override
-    public void removeRecord(int i) {
-        list = getFromFile();
-        list.remove(i);
-        addInFile();
-    }
-
-    @Override
-    public void editRecord(Record temp, int i) {
-        list.set(i,temp);
-        addInFile();
-    }
-    @Override
-    public  void sort(Comparator<Record>ob) {
-        list = getFromFile();
-        Collections.sort(list, ob);
-        addInFile();
-    }
-
-    @Override
-    public List<Record> getList() {
-        list = getFromFile();
-        return list;
-    }
-
-    @Override
-    public List<Record> searchRecord(String st, String fieldName) throws NoSuchFieldException, IllegalAccessException {
-        list = getFromFile();
-        List<Record>temp = new ArrayList<>();
-        Class clazz = Record.class;
-        java.lang.reflect.Field field = clazz.getDeclaredField(fieldName);
-        for (Record h:list) {
-            field.setAccessible(true);
-            if(field.get(h).equals(st)){
-                temp.add(h);
-            }
-            field.setAccessible(false);
-        }
-        return temp;
-    }
-
 }
