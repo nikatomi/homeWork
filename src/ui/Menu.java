@@ -1,4 +1,4 @@
-package bll;
+package ui;
 
 // TODO этот класс не часть bll перенести в пакет посвященный UI
 public class Menu {

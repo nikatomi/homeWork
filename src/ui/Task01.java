@@ -9,6 +9,44 @@ import java.text.DateFormat;
 import java.util.*;
 import java.util.List;
 
+/*
+
+TODO падение приложения
+Выберите репозиторий для работы
+1.Бинарный файл
+2.Файл *.CSV
+3.Выход
+1
+1.Создать новый репозиторий
+2.Выбрать репозиторий
+3.Шаг назад
+1
+Введите имя нового репозитория
+sdf
+1.Добавить запись в репозиторий
+2.Изменить запись в репозитории
+3.Удалить запись из репозитория
+4.Сортировать записи
+5.Вывод на экран
+6.Поиск записей
+7.Выполнить шаг назад
+ls
+Exception in thread "main" java.util.InputMismatchException
+	at java.util.Scanner.throwFor(Scanner.java:864)
+	at java.util.Scanner.next(Scanner.java:1485)
+	at java.util.Scanner.nextInt(Scanner.java:2117)
+	at java.util.Scanner.nextInt(Scanner.java:2076)
+	at ui.Task01.consolInterface(Task01.java:101)
+	at ui.Task01.main(Task01.java:30)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:144)
+
+Process finished with exit code 1
+
+*/
 public class Task01 {
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
         int exit = 0, exitRep;
@@ -17,25 +55,25 @@ public class Task01 {
         Repository repositories;
         while (exit == 0) {
             Menu.fileMenu();
-            switch (sc.nextInt()) {
+            switch (inputCheck()) {
                 case 1:
                     exitRep = 0;
                     while (exitRep == 0) {
                         Menu.repositoriesMenu();
-                        switch (sc.nextInt()) {
+                        switch (inputCheck()) {
                             case 1:
                                 System.out.println("Введите имя нового репозитория");
                                 nameRepositories = sc.next() + ".txt";
-                                repositories = new BinarRepasitories(nameRepositories);
-                                Task01.consolInterface(repositories);
+                                repositories = RepositoryFactory.createBinarRepositoriy(nameRepositories);
+                                consolInterface(repositories);
                                 break;
                             case 2:
                                 System.out.println("Введите название репозитория");
                                 nameRepositories = sc.next() + ".txt";
                                 File file = new File(nameRepositories);
                                 if (file.exists()) {
-                                    repositories = new BinarRepasitories(nameRepositories);
-                                    Task01.consolInterface(repositories);
+                                    repositories = RepositoryFactory.createBinarRepositoriy(nameRepositories);
+                                    consolInterface(repositories);
                                 } else {
                                     System.out.println("Такого репозитория не существует");
                                 }
@@ -53,20 +91,20 @@ public class Task01 {
                     exitRep = 0;
                     while (exitRep == 0) {
                         Menu.repositoriesMenu();
-                        switch (sc.nextInt()) {
+                        switch (inputCheck()) {
                             case 1:
                                 System.out.println("Введите имя нового репозитория");
                                 nameRepositories = sc.next() + ".csv";
-                                repositories = new CsvRepositories(nameRepositories);
-                                Task01.consolInterface(repositories);
+                                repositories = RepositoryFactory.createCsvRepository(nameRepositories);
+                                consolInterface(repositories);
                                 break;
                             case 2:
                                 System.out.println("Введите название репозитория");
                                 nameRepositories = sc.next() + ".csv";
                                 File file = new File(nameRepositories);
                                 if (file.exists()) {
-                                    repositories = new CsvRepositories(nameRepositories);
-                                    Task01.consolInterface(repositories);
+                                    repositories = RepositoryFactory.createCsvRepository(nameRepositories);
+                                    consolInterface(repositories);
                                 } else {
                                     System.out.println("Такого репозитория не существует");
                                 }
@@ -98,7 +136,7 @@ public class Task01 {
                 // вызов главного меню
                 Menu.mainMenu();
                 // ссылке типа IntefaceRepository инициализируем экземпляр класcа бинарного файла
-                switch (sc.nextInt()) {
+                switch (inputCheck()) {
                     case 1:
                         Record temp = new Record();
                         System.out.println("Введите фамилию");
@@ -114,7 +152,7 @@ public class Task01 {
                             phone.setNumber(sc.next());
                             phoneNumbs.add(phone);
                             Menu.phoneMenu();
-                            exit2 = sc.nextInt();
+                            exit2 = inputCheck();
                         }
                         temp.setPhoneNumb(phoneNumbs);
                         System.out.println("Введите тег");
@@ -124,7 +162,7 @@ public class Task01 {
                         try {
                             i = repositories.getList().get(repositories.getList().size() - 1).getId() + 1;
                         } catch (Exception e) {
-                            i = 0;
+                            i = 1;
                         }
                         temp.setId(i);
                         temp.setDate(DateFormat.getDateInstance(DateFormat.SHORT).format(date));
@@ -254,5 +292,15 @@ public class Task01 {
                 }
             }
 
+    }
+    public static int inputCheck(){
+        Scanner sc = new Scanner(System.in);
+        int v = 0;
+        try {
+            v = sc.nextInt();
+        }catch (InputMismatchException e){
+            System.err.println("Неверный формат ввода");
+        }
+        return v;
     }
 }

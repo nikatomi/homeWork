@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class BinarRepasitories extends Repository {
+ class BinarRepasitories extends Repository {
 
     public BinarRepasitories(String nameRepositories){
         super(nameRepositories);
