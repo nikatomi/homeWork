@@ -9,6 +9,44 @@ import java.text.DateFormat;
 import java.util.*;
 import java.util.List;
 
+/*
+
+TODO падение приложения
+Выберите репозиторий для работы
+1.Бинарный файл
+2.Файл *.CSV
+3.Выход
+1
+1.Создать новый репозиторий
+2.Выбрать репозиторий
+3.Шаг назад
+1
+Введите имя нового репозитория
+sdf
+1.Добавить запись в репозиторий
+2.Изменить запись в репозитории
+3.Удалить запись из репозитория
+4.Сортировать записи
+5.Вывод на экран
+6.Поиск записей
+7.Выполнить шаг назад
+ls
+Exception in thread "main" java.util.InputMismatchException
+	at java.util.Scanner.throwFor(Scanner.java:864)
+	at java.util.Scanner.next(Scanner.java:1485)
+	at java.util.Scanner.nextInt(Scanner.java:2117)
+	at java.util.Scanner.nextInt(Scanner.java:2076)
+	at ui.Task01.consolInterface(Task01.java:101)
+	at ui.Task01.main(Task01.java:30)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:144)
+
+Process finished with exit code 1
+
+*/
 public class Task01 {
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
         int exit = 0, exitRep;

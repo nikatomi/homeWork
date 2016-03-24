@@ -7,9 +7,12 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 public class CsvRepositories extends Repository {
+
     public CsvRepositories(String nameRepositories){
         super(nameRepositories);
     }
+    // TODO исключения лучше пробрасывать наружу, т.к. их нужно обрабатывать корректно в UI
+    // TODO хорошая практика разделять методо бробельными строками, так читать проще
     protected List<Record> addInFile(){
         File file = new File(nameRepositories);
         try(BufferedWriter buff = new BufferedWriter(new FileWriter(file))) {
@@ -63,6 +66,8 @@ public class CsvRepositories extends Repository {
             return list ;
         }
 
+    // TODO слишком слошный метод, лучше разбивать такие участки на несколько методов поменьше,
+    // конструкции с большой вложенностью очень сложно понимать
     protected List<Record> getFromFile(){
         File file = new File(nameRepositories);
         list.clear();

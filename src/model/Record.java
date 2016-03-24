@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.List;
 
-// TODO 4. переопределеить equals и hashCode
+// TODO 4. обязательно переопределеить  hashCode если пререопределен equals
 public class Record implements Serializable{
     private int id;
     private String name;
@@ -18,6 +18,7 @@ public class Record implements Serializable{
         this.name = name;
         this.lastname = lastname;
         this.phoneNumb = phoneNumb;
+        // TODO правильно tag
         this.teg = teg;
     }
 
