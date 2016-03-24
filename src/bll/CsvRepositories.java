@@ -1,28 +1,21 @@
 package bll;
-import model.Field;
+import model.Record;
 import model.PhoneNumb;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.util.*;
 
-// TODO не стоит пропускать заголовки в csv
-public class CsvRepositories implements Repositories {
-    // TODO имена, более значимые давать
-    private List<Field>list = new ArrayList<>();
-    private String nameRepositories;
+public class CsvRepositories extends Repository {
     public CsvRepositories(String nameRepositories){
-        this.nameRepositories = nameRepositories;
+        super(nameRepositories);
     }
-
-    //TODO отделяйте методы пробелами, чтобы проще читать было
-    public List<Field> addInFile(){
+    protected List<Record> addInFile(){
         File file = new File(nameRepositories);
         try(BufferedWriter buff = new BufferedWriter(new FileWriter(file))) {
-            // создаём экземпляр класса Сlass типа Field....используем reflection api
-            Class clazz = Field.class;
-            // в массив типа Field(reflect) вводим все имеющиеся поля объекта типа Field(model)
+            // создаём экземпляр класса Сlass типа Record....используем reflection api
+            Class clazz = Record.class;
+            // в массив типа Field(reflect) вводим все имеющиеся поля объекта типа Record(model)
             java.lang.reflect.Field[] field = clazz.getDeclaredFields();
             // инициализируем массив типа String
             String[]st = new String[field.length];
@@ -53,7 +46,7 @@ public class CsvRepositories implements Repositories {
                         }
                         buff.write("\",");
                     }else {
-                        Field h = list.get(j);
+                        Record h = list.get(j);
                         st[k] = "" + field[k].get(h);
                         buff.write(" " + st[k] + ",");
                         field[k].setAccessible(false);
@@ -61,7 +54,6 @@ public class CsvRepositories implements Repositories {
                 }
                     buff.write("\n");
             }
-
             buff.flush();
         }catch (IOException e){
             e.printStackTrace();
@@ -71,22 +63,17 @@ public class CsvRepositories implements Repositories {
             return list ;
         }
 
-    // TODO по рефлекшенам есть нескольно важных моментов. Во-первых они заменяют приложение. И если можно
-    // их избежать, лучше избежать. В данном случае использование не совсем разумно, т.к. все равно этот
-    // участок кода привязан к конкретной реализации (и классу), поэтому гораздо проще было просто распарсить
-    // reflection было бы разумно применить для написания универсального класса, который сможет
-    // работать с любым классом.
-    public List<Field> getFromFile(){
+    protected List<Record> getFromFile(){
         File file = new File(nameRepositories);
         list.clear();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             while (bufferedReader.read() != -1) {
                 // используем массив типа String для хранения строки из файла и разделяем строку на элементы массива
                 String[] st = bufferedReader.readLine().split(",");
-                // создаём экземпляр класса Сlass типа Field....используем reflection api
-                Class clazz = Field.class;
-                Field ob = new Field();
-                // в массив типа Field(reflect) вводим все имеющиеся поля объекта типа Field(model)
+                // создаём экземпляр класса Сlass типа Record....используем reflection api
+                Class clazz = Record.class;
+                Record ob = new Record();
+                // в массив типа Record(reflect) вводим все имеющиеся поля объекта типа Record(model)
                 java.lang.reflect.Field[] field = clazz.getDeclaredFields();
                 for (int i = 0; i < field.length; i++) {
                     // setAccessible даёт вазможность изменять закрытые поля объекта
@@ -101,7 +88,7 @@ public class CsvRepositories implements Repositories {
                         String[]sList = st[i].substring(st[i].indexOf("\"")+1,st[i].lastIndexOf("\"")).split(" ");
                         // создаём экземпляр класса Сlass типа PhoneNumb....используем reflection api
                         Class clazzPhoneNumb = PhoneNumb.class;
-                        // в массив типа Field(reflect) вводим все имеющиеся поля объекта типа PhoneNumb
+                        // в массив типа Record(reflect) вводим все имеющиеся поля объекта типа PhoneNumb
                         java.lang.reflect.Field[] fieldTel = clazzPhoneNumb.getDeclaredFields();
                         List<PhoneNumb> listPhoneNumb = new ArrayList<>();
                         for (int j = 0; j <sList.length ; j++) {
@@ -133,119 +120,4 @@ public class CsvRepositories implements Repositories {
         }
         return list;
     }
-
-    @Override
-    public void addField(Field temp) {
-        list = getFromFile();
-        list.add(temp);
-        addInFile();
-    }
-
-    // TODO не совсем очевидное поведение метода, не плохо оставлять комментарии
-    @Override
-    public int search(String st) {
-        list = getFromFile();
-        for(int i = 0;i<list.size();i++){
-            if(list.get(i).getLastname().equals(st)){
-                return  i;
-            }
-        }
-        return  -1;
-    }
-
-    @Override
-    public void removeField(int i) {
-        list = getFromFile();
-        list.remove(i);
-        addInFile();
-    }
-
-    @Override
-    public void editField(Field temp, int i) {
-        list.set(i,temp);
-        addInFile();
-    }
-
-    @Override
-    public void sortLastName() {
-        list = getFromFile();
-        Collections.sort(list, CompareField.compareLastName);
-        addInFile();
-    }
-
-    @Override
-    public void sortName() {
-        list = getFromFile();
-        Collections.sort(list, CompareField.compareName);
-        addInFile();
-    }
-
-    @Override
-    public void sortTag() {
-        list = getFromFile();
-        Collections.sort(list, CompareField.compareTag);
-        addInFile();
-    }
-
-    @Override
-    public void sortId() {
-        list = getFromFile();
-        Collections.sort(list, CompareField.compareID);
-        addInFile();
-    }
-
-    @Override
-    public List<Field> getList() {
-        list = getFromFile();
-        return list;
-    }
-
-    @Override
-    public List<Field> searchLastName(String st) {
-        list = getFromFile();
-        List<Field>temp = new ArrayList<>();
-        for (Field h : list) {
-            if(h.getLastname().equals(st)){
-                temp.add(h);
-            }
-        }
-        return temp;
-    }
-
-    @Override
-    public List<Field> searchName(String st) {
-        list = getFromFile();
-        List<Field>temp = new ArrayList<>();
-        for (Field h : list) {
-            if(h.getName().equals(st)){
-                temp.add(h);
-            }
-        }
-        return temp;
-    }
-
-    @Override
-    public List<Field> searchTag(String st) {
-        list = getFromFile();
-        List<Field>temp = new ArrayList<>();
-        for (Field h : list) {
-            if(h.getTeg().equals(st)){
-                temp.add(h);
-            }
-        }
-        return temp;
-    }
-
-    @Override
-    public List<Field> searchDate(String st) {
-        list = getFromFile();
-        List<Field>temp = new ArrayList<>();
-        for (Field h : list) {
-            if(h.getDate().equals(st)){
-                temp.add(h);
-            }
-        }
-        return temp;
-    }
-
 }

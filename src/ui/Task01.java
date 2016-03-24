@@ -1,11 +1,8 @@
 package ui;
 
-import bll.BinarRepasitories;
-import bll.CsvRepositories;
-import bll.Repositories;
-import model.Field;
+import bll.*;
+import model.Record;
 import model.PhoneNumb;
-import bll.Menu;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -13,11 +10,11 @@ import java.util.*;
 import java.util.List;
 
 public class Task01 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
         int exit = 0, exitRep;
         Scanner sc = new Scanner(System.in);
         String nameRepositories;
-        Repositories repositories;
+        Repository repositories;
         while (exit == 0) {
             Menu.fileMenu();
             switch (sc.nextInt()) {
@@ -91,19 +88,19 @@ public class Task01 {
         }
     }
 
-    public static void consolInterface(Repositories repositories) {
+    public static void consolInterface(IntefaceRepository repositories) throws NoSuchFieldException, IllegalAccessException {
         int exit2, exit1, exit3, z;
         Scanner sc = new Scanner(System.in);
-        List<Field> list;
+        List<Record> list;
         Date date = new Date();
         exit1 = 0;
             while (exit1 == 0) {
                 // вызов главного меню
                 Menu.mainMenu();
-                // ссылке типа Repositories инициализируем экземпляр класcа бинарного файла
+                // ссылке типа IntefaceRepository инициализируем экземпляр класcа бинарного файла
                 switch (sc.nextInt()) {
                     case 1:
-                        Field temp = new Field();
+                        Record temp = new Record();
                         System.out.println("Введите фамилию");
                         temp.setLastname(sc.next());
                         System.out.println("Введите имя");
@@ -122,7 +119,7 @@ public class Task01 {
                         temp.setPhoneNumb(phoneNumbs);
                         System.out.println("Введите тег");
                         temp.setTeg(sc.next());
-                        repositories.sortId();
+                        repositories.sort(CompareField.compareID);
                         int i;
                         try {
                             i = repositories.getList().get(repositories.getList().size() - 1).getId() + 1;
@@ -131,7 +128,7 @@ public class Task01 {
                         }
                         temp.setId(i);
                         temp.setDate(DateFormat.getDateInstance(DateFormat.SHORT).format(date));
-                        repositories.addField(temp);
+                        repositories.addRecord(temp);
                         break;
                     case 2:
                         System.out.println("Введите фамилию");
@@ -169,7 +166,7 @@ public class Task01 {
                                     break;
                                 case 5:
                                     temp.setDate(DateFormat.getDateInstance(DateFormat.SHORT).format(date));
-                                    repositories.editField(temp,z);
+                                    repositories.editRecord(temp,z);
                                     exit3 = 1;
                                     break;
                                 default:
@@ -185,22 +182,22 @@ public class Task01 {
                             System.out.println("Запись не найдена");
                             break;
                         }
-                        repositories.removeField(z);
+                        repositories.removeRecord(z);
                         break;
                     case 4:
                         Menu.sortMenu();
                         switch (sc.nextInt()) {
                             case 1:
-                                repositories.sortLastName();
+                                repositories.sort(CompareField.compareLastName);
                                 break;
                             case 2:
-                                repositories.sortName();
+                                repositories.sort(CompareField.compareName);
                                 break;
                             case 3:
-                                repositories.sortTag();
+                                repositories.sort(CompareField.compareTag);
                                 break;
                             case 4:
-                                repositories.sortId();
+                                repositories.sort(CompareField.compareID);
                                 break;
                             default:
                                 System.out.println("Ошибка ввода");
@@ -208,7 +205,7 @@ public class Task01 {
                         }
                         break;
                     case 5:
-                        for (Field h : repositories.getList()) {
+                        for (Record h : repositories.getList()) {
                             System.out.println(h.toString());
                         }
                         break;
@@ -217,29 +214,30 @@ public class Task01 {
                         switch (sc.nextInt()) {
                             case 1:
                                 System.out.println("Введите искомую фамилию");
-                                list = repositories.searchLastName(sc.next());
-                                for (Field h : list) {
+                                String fieldName = "lastname";
+                                list = repositories.searchRecord(sc.next(),fieldName);
+                                for (Record h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
                             case 2:
                                 System.out.println("Введите имя");
-                                list = repositories.searchName(sc.next());
-                                for (Field h : list) {
+                                list = repositories.searchRecord(sc.next(),"name");
+                                for (Record h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
                             case 3:
                                 System.out.println("Введите тэг");
-                                list = repositories.searchTag(sc.next());
-                                for (Field h : list) {
+                                list = repositories.searchRecord(sc.next(),"teg");
+                                for (Record h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
                             case 4:
                                 System.out.println("Введите дату");
-                                list = repositories.searchDate(sc.next());
-                                for (Field h : list) {
+                                list = repositories.searchRecord(sc.next(),"date");
+                                for (Record h : list) {
                                     System.out.println(h.toString());
                                 }
                                 break;
