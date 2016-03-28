@@ -3,22 +3,22 @@ package model;
 import java.io.Serializable;
 import java.util.List;
 
-// TODO 4. обязательно переопределеить  hashCode если пререопределен equals
+// TODO 4. переопределеить equals и hashCode
 public class Record implements Serializable{
     private int id;
     private String name;
     // TODO 1. назвать в camelCase т.е. lastname -> lastName
     private String lastname;
     private List<PhoneNumb> phoneNumb;
-    private String tag;
+    private String teg;
     private String date;
     public Record(){}
-    public Record(int id, String name, String lastname, List<PhoneNumb> phoneNumb, String tag) {
+    public Record(int id, String name, String lastname, List<PhoneNumb> phoneNumb, String teg) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.phoneNumb = phoneNumb;
-        this.tag = tag;
+        this.teg = teg;
     }
 
     public void setId(int id) {
@@ -37,8 +37,8 @@ public class Record implements Serializable{
         this.phoneNumb = phoneNumb;
     }
 
-    public void setTeg(String tag) {
-        this.tag = tag;
+    public void setTeg(String teg) {
+        this.teg = teg;
     }
 
     public int getId() {
@@ -58,7 +58,7 @@ public class Record implements Serializable{
     }
 
     public String getTeg() {
-        return tag;
+        return teg;
     }
 
     public String getDate() {
@@ -78,7 +78,7 @@ public class Record implements Serializable{
                 "Тэг : %s \n" +
                 "Телефон : %s \n" +
                 "Дата изменения записи : %s \n" +
-                "======================================\n",id,lastname,name,tag,phoneNumb.toString(),date);
+                "======================================\n",id,lastname,name,teg,phoneNumb.toString(),date);
     }
 
     @Override
@@ -92,19 +92,9 @@ public class Record implements Serializable{
         if (name != null ? !name.equals(field.name) : field.name != null) return false;
         if (lastname != null ? !lastname.equals(field.lastname) : field.lastname != null) return false;
         if (phoneNumb != null ? !phoneNumb.equals(field.phoneNumb) : field.phoneNumb != null) return false;
-        if (tag != null ? !tag.equals(field.tag) : field.tag != null) return false;
+        if (teg != null ? !teg.equals(field.teg) : field.teg != null) return false;
         return date != null ? date.equals(field.date) : field.date == null;
 
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-        result = 31 * result + (phoneNumb != null ? phoneNumb.hashCode() : 0);
-        result = 31 * result + (tag != null ? tag.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        return result;
-    }
 }
