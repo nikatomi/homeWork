@@ -16,7 +16,7 @@ import java.util.List;
     public BinarRepasitories(String nameRepositories){
         super(nameRepositories);
     }
-    protected List<Record> addInFile(){
+    protected List<Record> save(){
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(nameRepositories);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -26,7 +26,7 @@ import java.util.List;
         }
         return list;
     }
-    protected List<Record>getFromFile(){
+    protected List<Record> read(){
         try {
             FileInputStream fileInputStream = new FileInputStream(nameRepositories);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);

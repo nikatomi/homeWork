@@ -13,12 +13,13 @@ public class Record implements Serializable{
     private String teg;
     private String date;
     public Record(){}
-    public Record(int id, String name, String lastname, List<PhoneNumb> phoneNumb, String teg) {
+    public Record(int id, String name, String lastname, List<PhoneNumb> phoneNumb, String teg,String date) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.phoneNumb = phoneNumb;
         this.teg = teg;
+        this.date = date;
     }
 
     public void setId(int id) {

@@ -15,19 +15,19 @@ public abstract class Repository implements IntefaceRepository{
         this.nameRepositories = nameRepositories;
     }
 
-    abstract protected List<Record>addInFile();
-    abstract protected List<Record>getFromFile();
+    abstract protected List<Record> save();
+    abstract protected List<Record> read();
 
     @Override
     public void addRecord(Record temp) {
-        list = getFromFile();
+        list = read();
         list.add(temp);
-        addInFile();
+        save();
     }
 
     @Override
     public int search(String st) {
-        list = getFromFile();
+        list = read();
         for(int i = 0;i<list.size();i++){
             if(list.get(i).getLastname().equals(st)){
                 return  i;
@@ -38,33 +38,33 @@ public abstract class Repository implements IntefaceRepository{
 
     @Override
     public void removeRecord(int i) {
-        list = getFromFile();
+        list = read();
         list.remove(i);
-        addInFile();
+        save();
     }
 
     @Override
     public void editRecord(Record temp, int i) {
         list.set(i,temp);
-        addInFile();
+        save();
     }
 
     @Override
     public void sort(Comparator<Record> ob) {
-        list = getFromFile();
+        list = read();
         Collections.sort(list,  ob);
-        addInFile();
+        save();
     }
 
     @Override
     public List<Record> getList() {
-        list = getFromFile();
+        list = read();
         return list;
     }
 
     @Override
     public List<Record> searchRecord(String st, String fieldName) throws NoSuchFieldException, IllegalAccessException {
-        list = getFromFile();
+        list = read();
         List<Record>temp = new ArrayList<>();
         Class clazz = Record.class;
         java.lang.reflect.Field field = clazz.getDeclaredField(fieldName);
